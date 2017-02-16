@@ -51,12 +51,23 @@ public class Main {
 	 * If command is /quit, return empty ArrayList. 
 	 */
 	public static ArrayList<String> parse(Scanner keyboard) {
+		ArrayList<String> arr = new ArrayList<String>();
+		String word = keyboard.nextLine();
+		if (word.equals("/quit")) {
+			return arr;
+		}
+		else {
+			arr.add(word);
+			String word2 = keyboard.nextLine();
+			arr.add(word2);
+		}
 		// TO DO
-		return null;
+		return arr;
 	}
 	
 	public static void test() {
 		System.out.println("Hi");
+		System.out.println("Git push worked!");
 	}
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
