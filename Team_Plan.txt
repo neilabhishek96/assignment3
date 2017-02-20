@@ -1,0 +1,8 @@
+EE422C Project 3 (Word Ladder) Team Plan
+
+Jon Ambrose ja38435
+Neil Abhishek Charles nc23227
+Spring 2017
+
+Neil initally completed the BFS search method.
+Jon will complete the DFS search method.

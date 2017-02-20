@@ -1,3 +1,15 @@
+/* WORD LADDER WordLadderTester.java
+ * EE422C Project 3 submission by
+ * Jon Ambrose
+ * ja38435
+ * 16215
+ * Neil Abhishek Charles
+ * nc23227
+ * 16215
+ * Slip days used: <0>
+ * Git URL: https://github.com/neilabhishek96/assignment3/
+ * Spring 2017
+ */
 
 package assignment3;
 
