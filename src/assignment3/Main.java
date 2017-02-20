@@ -31,17 +31,15 @@ public class Main {
 		PrintStream ps;	// output file
 		System.out.println("hi");
 		// If arguments are specified, read/write from/to files instead of Std IO.
-//		if (args.length != 0) {
-//			kb = new Scanner(new File(args[0]));
-//			ps = new PrintStream(new File(args[1]));
-//			System.setOut(ps);			// redirect output to ps
-//		} else {
-//			kb = new Scanner(System.in);// default from Stdin
-//			ps = System.out;			// default to Stdout
-//		}
-		//test2();
-		System.out.println("hi");
-		//initialize();
+		if (args.length != 0) {
+			kb = new Scanner(new File(args[0]));
+			ps = new PrintStream(new File(args[1]));
+			System.setOut(ps);			// redirect output to ps
+		} else {
+			kb = new Scanner(System.in);// default from Stdin
+			ps = System.out;			// default to Stdout
+		}
+		initialize();
 		getWordLadderBFS("smart", "money");
 		// TODO methods to read in words, output ladder
 	}
@@ -72,10 +70,6 @@ public class Main {
 		return arr;
 	}
 	
-	public static void test() {
-		System.out.println("Hi");
-		System.out.println("Git push worked!");
-	}
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		
@@ -145,22 +139,7 @@ public class Main {
 		}
 		Collections.reverse(arr);
 		System.out.println(arr);
-//		for (String t: s) {
-//			if (t.equals("SMART")) {
-//				System.out.println(t);
-//			}
-//		}
-		// TODO more code
-		//Node head = new Node(start);
-//		makeTree(head, dict);
-		//test3(dict);
-		/* 
-		 * while (next rung is not found) {
-		 * 		make the tree
-		 * 		use bfs to find the next rung
-		 * 		add it to arraylist bob
-		 * }
-		 */
+
 		return null; // replace this line later with real return
 	}
     
@@ -227,133 +206,7 @@ public class Main {
 			
 		}
 	}
-	public static void makeTree(Node node, Set<String> dict) {
-		Node newNode = null;
-		
-		if (node == null) {
-			return;
-		}
-		else {
-		for (int i = 0; i < node.actual.length();i++) {
-			
-			for (int j = 0; j < 2; j++) {
-				//System.out.println(node.actual.length());
-				String bob = "";;
-				ArrayList<Character> arr = new ArrayList<Character>();
-				for (char c: node.actual.toCharArray()) {
-					arr.add(c);
-				}
-				if (j == 0) {
-					char let = (char)(arr.get(i)-1);
-					if (let >='a') {
-						arr.set(i, (char)(arr.get(i)-1));
-						for (int k = 0; k < arr.size(); k++) {
-							bob += arr.get(k);
-						}
-						System.out.println(bob);
-					}
-				}
-				else {
-					char let = (char)(arr.get(i)+1);
-					if (let <='z') {
-						arr.set(i, let);
-						for (int k = 0; k < arr.size(); k++) {
-							bob += arr.get(k);
-						}
-						System.out.println(bob);
-					}
-				}
-					if (dict.contains(bob)) {
-						newNode = new Node(bob);
-						System.out.println("hurraaaaay");
-						newNode.parent = node;
-//						node.add(newNode);
-					}
-					//System.out.println(node.actual.length());
-				}
-				makeTree(newNode, dict);
-//				System.out.println(node.arrList.get(i));
-
-			}
-		}
-		}
-	public static void test3(Set<String> dict) {
-		String input = "smart";
-		
-		for (int j=0;j<13;j++) {
-		
-			
-			for (int i = 0; i<5;i++){
-				ArrayList<Character> arr = new ArrayList<Character>();
-				for (char c: input.toCharArray()) {
-					arr.add(c);
-				}
-				String bob = "";
-				boolean flag1 = false, flag2 = false;
-				char let = (char) (input.charAt(i) + j);
-				char let2 = (char) (input.charAt(i) + (-1*j));
-				
-				if (let <= 'z') {
-					flag1 = true;
-				}
-				if (let2 >= 'a') {
-					flag2 = true;
-				}
-				arr.set(i, let);
-				for (int k = 0; k < arr.size(); k++) {
-					bob += arr.get(k);
-				}
-				//System.out.println(bob);
-				if(dict.contains(bob.toUpperCase())&& !bob.equals(input) && flag1) {
-					System.out.println(bob);
-				}
-				
-				bob = "";
-				arr.set(i, let2);
-				for (int k = 0; k < arr.size(); k++) {
-					bob += arr.get(k);
-				}
-				//System.out.println(bob);
-				if(dict.contains(bob.toUpperCase()) && !bob.equals(input) && flag2) {
-					System.out.println(bob);
-				}
-			}
-		}
-	}
-	public static void test2() {
-		Tree t = new Tree();
-		ArrayList<Integer> temp = new ArrayList<Integer>();
-		temp.add(0);
-		temp.add(1);
-		temp.add(2);temp.add(3);temp.add(4);
-		
-		t.add("smart", "money", temp);
-		t.printall();
-//		char letter = 'B';
-//		char newLet = (char) (letter - 1);
-//		System.out.println(newLet);
-//		
-//		Set<String> dict = makeDictionary();
-//		String[] chararr = "abcdefghijklmnopqrstuvwxyz".split("");
-//		
-//		String[] arr = {"s", "t", "a", "r", "s"};
-//		String[] temp;
-//		for (int a = 0; a < 5; a++) {
-//			temp = arr.clone();
-//			for (int b = 0; b < 26; b++) {
-//				temp[a] = chararr[b];
-//				String bob = String.join("", temp);
-//				//String bob = Arrays.toString(temp);
-//				//System.out.println(bob);
-//				//System.out.println(dict.contains("SMART"));
-//				//System.out.println(bob.equals(Arrays.toString(arr)));
-//				if (dict.contains(bob.toUpperCase()) && !bob.equals(String.join("", arr))) {
-//					System.out.println(bob);
-//				}
-//			}
-//		}
-//		
-	}
+	
 	// TODO
 	// Other private static methods here
 }
