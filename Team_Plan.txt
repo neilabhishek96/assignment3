@@ -6,3 +6,7 @@ Spring 2017
 
 Neil initally completed the BFS search method.
 Jon will complete the DFS search method.
+Jon and Neil implemented the printLadder function together.
+Neil will implement the parse function. Jon will test the parse function.
+Jon will test Neil's BFS method and Neil will test Jon's DFS method.
+All testing, communication, and debugging is done either in person or via google hangouts video call.
