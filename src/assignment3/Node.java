@@ -21,10 +21,6 @@ public class Node {
 		ArrayList<Node> arrList;
 		String actual;
 		boolean visited;
-//		ArrayList<Character> actual;
-//		char letter;
-//		String start;
-//		int pos;
 		
 		Node parent;
 		

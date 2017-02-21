@@ -22,13 +22,12 @@ import java.io.*;
 public class Main {
 	
 	// static variables and constants only here.
-	static ArrayList<Node> dict_node;
+	static ArrayList<Node> dict_node;	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		Scanner kb;	// input Scanner for commands
 		PrintStream ps;	// output file
-		System.out.println("hi");
 		// If arguments are specified, read/write from/to files instead of Std IO.
 		if (args.length != 0) {
 			kb = new Scanner(new File(args[0]));
@@ -39,14 +38,32 @@ public class Main {
 			ps = System.out;			// default to Stdout
 		}
 		initialize();
-		getWordLadderBFS("smart", "money");
-		// TODO methods to read in words, output ladder
+		//printLadder(getWordLadderBFS("balls", "sacks"));
+		kb.close();
+		ps.close();
 	}
 	
 	public static void initialize() {
 		// initialize your static variables or constants here.
 		// We will call this method before running our JUNIT tests.  So call it 
 		// only once at the start of main.
+		Set<String> dict = makeDictionary();
+		Iterator<String> ite = dict.iterator();
+		ArrayList<String> s = new ArrayList<String>();
+		
+		for (int i = 0; i < dict.size(); i++) {
+			s.add(ite.next().toLowerCase());
+		}
+		dict_node = new ArrayList<Node>();
+		for (int i = 0; i < dict.size(); i++) {
+			dict_node.add(new Node(s.get(i)));
+		}
+		
+		for(int i = 0; i < dict.size();i++) {
+			Node node = dict_node.get(i);
+			findEdge(node);
+		}
+		
 	}
 	
 	/**
@@ -65,7 +82,6 @@ public class Main {
 			String word2 = keyboard.nextLine();
 			arr.add(word2);
 		}
-		// TO DO
 		return arr;
 	}
 	
@@ -75,41 +91,21 @@ public class Main {
 		// Returned list should be ordered start to end.  Include start and end.
 		// Return empty list if no ladder.
 		// TODO some code
-		Set<String> dict = makeDictionary();
-		// TODO more code
+		//Set<String> dict = makeDictionary();
 		
 		return null; // replace this line later with real return
 	}
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		
-		// TODO some code
-		Set<String> dict = makeDictionary();
-		Iterator<String> ite = dict.iterator();
-		//String[] dict_arr = (String[]) (dict.toArray());
-		//String s = "smart";
-		ArrayList<String> s = new ArrayList<String>();
-		for (int i = 0; i < dict.size(); i++) {
-			s.add(ite.next());
-		}
-		dict_node = new ArrayList<Node>();
-		for (int i = 0; i < dict.size(); i++) {
-			dict_node.add(new Node(s.get(i)));
-		}
 		
-		for(int i = 0; i < dict.size();i++) {
-			Node node = dict_node.get(i);
-			findEdge(node);
-		}
 		Node head = null;
-		for (int i = 0; i < dict.size(); i++) {
-			if (dict_node.get(i).actual.equals("STONE")) {
+		for (int i = 0; i < dict_node.size(); i++) {
+			if (dict_node.get(i).actual.equals(start.toLowerCase())) {
 				head = dict_node.get(i);
 				//break;
 			}
 		}
-//		System.out.println(head.arrList);
-		end = "MONEY";
 		
 		ArrayList<String> arr = new ArrayList<String>();
 		head.parent = null;
@@ -118,16 +114,14 @@ public class Main {
 		queue.add(head);
 		while (!queue.isEmpty()) {
 			Node node = (Node)queue.remove();
-//			System.out.println(node);
-			if (node.actual.equals(end)) {
+			if (node.actual.equals(end.toLowerCase())) {
 				while (node.parent != null) {
 					arr.add(node.actual);
-			//		System.out.println(node.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent);
 					node = node.parent;
 				}
 				arr.add(node.actual);
 			}
-//			findShort(node,queue,end,dict);
+			
 			for(Node n : node.arrList) {
 				if (!n.visited) {
 					n.parent = node;
@@ -136,10 +130,14 @@ public class Main {
 				}
 			}
 		}
+		if(arr.isEmpty()){
+			arr.add(end);
+			arr.add(start);
+		}
 		Collections.reverse(arr);
-		System.out.println(arr);
+		//System.out.println(arr);
 
-		return null; // replace this line later with real return
+		return arr; // replace this line later with real return
 	}
     
 	public static Set<String>  makeDictionary () {
@@ -159,7 +157,15 @@ public class Main {
 	}
 	
 	public static void printLadder(ArrayList<String> ladder) {
-		
+		if(ladder.size() == 2){			
+			System.out.println("no word ladder can be found between " + ladder.get(0) + " and " + ladder.get(1) + ".");
+		}
+		else {
+		System.out.println("a " + ladder.size() + "-rung word ladder exists between " + ladder.get(0) + " and " + ladder.get(ladder.size()-1) + ".");
+		for(int i = 0; i < ladder.size(); i++){
+				System.out.println(ladder.get(i));
+			}
+		}
 	}
 	
 	public static void findEdge(Node head) {
@@ -175,37 +181,4 @@ public class Main {
 			}
 		}
 	}
-	
-	public static void findShort(Node head, Queue q, String end, Set<String> dict) {
-		
-		
-		for (int i = 0; i < head.actual.length(); i++) {
-			ArrayList<Character> arr = new ArrayList<Character>();
-			for (char c: head.actual.toCharArray()) {
-				arr.add(c);
-			}
-			arr.set(i, end.charAt(i));
-			String bob = "";
-			for (int k = 0; k < arr.size(); k++) {
-				bob += arr.get(k);
-			}
-			
-			if (dict.contains(bob.toUpperCase())) {
-				System.out.println(bob);
-				for (int j = 0; j < dict.size(); j++) {
-					if (dict_node.get(j).actual.equals(bob)) {
-						Node node = dict_node.get(j);
-						node.parent = head;
-						node.visited = true;
-						q.add(node);
-						//break;
-					}
-				}
-			}
-			
-		}
-	}
-	
-	// TODO
-	// Other private static methods here
 }
