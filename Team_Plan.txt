@@ -4,7 +4,7 @@ Jon Ambrose ja38435
 Neil Abhishek Charles nc23227
 Spring 2017
 
-Neil initally completed the BFS search method.
+Neil initally completed the BFS search and findEdge method.
 Jon will complete the DFS search method.
 Jon and Neil implemented the printLadder function together.
 Neil will implement the parse function. Jon will test the parse function.

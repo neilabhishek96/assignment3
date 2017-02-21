@@ -38,7 +38,7 @@ public class Main {
 			ps = System.out;			// default to Stdout
 		}
 		initialize();
-		//printLadder(getWordLadderBFS("balls", "sacks"));
+		printLadder(getWordLadderDFS("balls", "malls"));
 		kb.close();
 		ps.close();
 	}
@@ -88,12 +88,31 @@ public class Main {
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		
-		// Returned list should be ordered start to end.  Include start and end.
-		// Return empty list if no ladder.
-		// TODO some code
-		//Set<String> dict = makeDictionary();
+		Node head = null;
+		for (int i = 0; i < dict_node.size(); i++) {
+			if (dict_node.get(i).actual.equals(start.toLowerCase())) {
+				head = dict_node.get(i);
+				break;
+			}
+		}
 		
-		return null; // replace this line later with real return
+		Node finalnode[] = new Node[1];
+		ArrayList<String> res = new ArrayList<String>();
+		head.visited = true;
+		DFSInner(head, end, finalnode);
+		
+		while(finalnode[0].parent != null){
+			res.add(finalnode[0].actual);
+			finalnode[0] = finalnode[0].parent;
+		}
+		if(res.isEmpty()){
+			res.add(end);
+			res.add(start);
+		}
+		res.add(start);	
+		Collections.reverse(res);
+		
+		return res;
 	}
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
@@ -181,4 +200,30 @@ public class Main {
 			}
 		}
 	}
+	
+	private static boolean DFSInner(Node start, String finish, Node[] res) {
+		
+		if (start == null){
+			return false;
+		}
+		start.visited = true;
+		if(start.actual.equals(finish)) {
+			res[0] = start;
+			return true;
+		}
+		else {
+			for(int i = 0; i < start.arrList.size(); i++){
+				if(!start.arrList.get(i).visited){ 
+					boolean found = DFSInner(start.arrList.get(i), finish, res);
+					if(found){	
+						start.arrList.get(i).parent = start;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
+	}
+	
 }
