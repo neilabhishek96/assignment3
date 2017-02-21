@@ -38,7 +38,11 @@ public class Main {
 			ps = System.out;			// default to Stdout
 		}
 		initialize();
-		//printLadder(getWordLadderBFS("balls", "sacks"));
+		ArrayList<String> parseArr = parse(kb);
+		if (!parseArr.isEmpty()) {
+			printLadder(getWordLadderBFS(parseArr.get(0), parseArr.get(1)));
+		}
+		
 		kb.close();
 		ps.close();
 	}
@@ -72,17 +76,18 @@ public class Main {
 	 * If command is /quit, return empty ArrayList. 
 	 */
 	public static ArrayList<String> parse(Scanner keyboard) {
-		ArrayList<String> arr = new ArrayList<String>();
-		String word = keyboard.nextLine();
-		if (word.equals("/quit")) {
+		
+			ArrayList<String> arr = new ArrayList<String>();
+			String input = keyboard.nextLine();
+			String[] word = input.split(" ");
+			if (word[0].equals("/quit") || word[1].equals("/quit")) {
+				return arr;
+			}
+			else {
+				arr.add(word[0]);
+				arr.add(word[1]);
+			}
 			return arr;
-		}
-		else {
-			arr.add(word);
-			String word2 = keyboard.nextLine();
-			arr.add(word2);
-		}
-		return arr;
 	}
 	
 	
@@ -105,8 +110,9 @@ public class Main {
 				head = dict_node.get(i);
 				//break;
 			}
+			dict_node.get(i).visited = false;
 		}
-		
+//		System.out.println(head.arrList);
 		ArrayList<String> arr = new ArrayList<String>();
 		head.parent = null;
 		head.visited = true;
@@ -133,6 +139,9 @@ public class Main {
 		if(arr.isEmpty()){
 			arr.add(end);
 			arr.add(start);
+		}
+		else if (arr.size() == 1) {
+			arr.add(end);
 		}
 		Collections.reverse(arr);
 		//System.out.println(arr);
@@ -161,7 +170,7 @@ public class Main {
 			System.out.println("no word ladder can be found between " + ladder.get(0) + " and " + ladder.get(1) + ".");
 		}
 		else {
-		System.out.println("a " + ladder.size() + "-rung word ladder exists between " + ladder.get(0) + " and " + ladder.get(ladder.size()-1) + ".");
+		System.out.println("a " + (ladder.size()-2) + "-rung word ladder exists between " + ladder.get(0) + " and " + ladder.get(ladder.size()-1) + ".");
 		for(int i = 0; i < ladder.size(); i++){
 				System.out.println(ladder.get(i));
 			}
