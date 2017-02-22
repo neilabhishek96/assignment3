@@ -41,11 +41,10 @@ public class Main {
 		
 		//printLadder(getWordLadderDFS("balls", "balls"));
 		//printLadder(getWordLadderDFS("balls", "balls"));
-		//ArrayList<String> parseArr = 
-		parse(kb);
-//		if (!parseArr.isEmpty()) {
-//			printLadder(getWordLadderBFS(parseArr.get(0), parseArr.get(1)));
-//		}
+		ArrayList<String> parseArr = parse(kb);
+		if (!parseArr.isEmpty()) {
+			printLadder(getWordLadderDFS(parseArr.get(0), parseArr.get(1)));
+		}
 		kb.close();
 		ps.close();
 	}
@@ -75,20 +74,41 @@ public class Main {
 	 * @param keyboard Scanner connected to System.in
 	 * @return ArrayList of 2 Strings containing start word and end word. 
 	 * If command is /quit, return empty ArrayList. 
+	 * 
 	 */
-	public static void parse (Scanner keyboard) {
-		while(true){
+	public static ArrayList<String> parse(Scanner keyboard) {
+		
+			ArrayList<String> arr = new ArrayList<String>();
 			String input = keyboard.nextLine();
-			String[] word = input.split(" ");
+			String[] word = input.toLowerCase().split(" ");
 			if (word[0].equals("/quit") || word[1].equals("/quit")) {
-				return;
+				return arr;
 			}
 			else {
-				printLadder(getWordLadderBFS(word[0], word[1]));
+				arr.add(word[0]);
+				arr.add(word[1]);
+				//printLadder(getWordLadderBFS(word[0].toLowerCase(), word[1].toLowerCase()));
 			}
-			resetDict();
+			//resetDict();
+			return arr;
 		}
-	}
+	
+//	public static ArrayList<String> parse (Scanner keyboard) {
+//		while(true){
+//			ArrayList arr = new ArrayList();
+//			String input = keyboard.nextLine();
+//			String[] word = input.split(" ");
+//			if (word[0].equals("/quit") || word[1].equals("/quit")) {
+//				return arr;
+//			}
+//			else {
+//				arr.add(word[0]);
+//				arr.add(word[1]);
+//				printLadder(getWordLadderBFS(word[0].toLowerCase(), word[1].toLowerCase()));
+//			}
+//			resetDict();
+//		}
+//	}
 	
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {

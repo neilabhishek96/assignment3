@@ -29,17 +29,3 @@ DFS Methodology:
 	adj list. This search is exhaustive but is guarenteed to return either the desired Node or an empty
 	array. Once DFSInner completes, DFS will build the resulting array list using the final node and it'search
 	parental linkage. Finally it returns the result to the calling function.
-	
-Test cases:
-
-	BFS:
-		balls sacks - returned valid tree
-		fight fight - returned empty ladder
-		walls malls - returned empty ladder, correct as definded by the handout and piazza
-		aldol drawl - returned empty ladder
-		/quit       - exited Main
-		
-	DFS:
-		
-		
-		
