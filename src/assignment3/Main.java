@@ -131,7 +131,7 @@ public class Main {
 				head = dict_node.get(i);
 				//break;
 			}
-			dict_node.get(i).visited = false;
+			//dict_node.get(i).visited = false;
 		}
 		
 		ArrayList<String> arr = new ArrayList<String>();
