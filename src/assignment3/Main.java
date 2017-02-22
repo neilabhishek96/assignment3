@@ -38,23 +38,20 @@ public class Main {
 			ps = System.out;			// default to Stdout
 		}
 		initialize();
-<<<<<<< HEAD
-		printLadder(getWordLadderDFS("balls", "malls"));
-=======
-		ArrayList<String> parseArr = parse(kb);
-		if (!parseArr.isEmpty()) {
-			printLadder(getWordLadderBFS(parseArr.get(0), parseArr.get(1)));
-		}
 		
->>>>>>> origin/master
+		//printLadder(getWordLadderDFS("balls", "balls"));
+		//printLadder(getWordLadderDFS("balls", "balls"));
+		//ArrayList<String> parseArr = 
+		parse(kb);
+//		if (!parseArr.isEmpty()) {
+//			printLadder(getWordLadderBFS(parseArr.get(0), parseArr.get(1)));
+//		}
 		kb.close();
 		ps.close();
 	}
 	
 	public static void initialize() {
-		// initialize your static variables or constants here.
-		// We will call this method before running our JUNIT tests.  So call it 
-		// only once at the start of main.
+
 		Set<String> dict = makeDictionary();
 		Iterator<String> ite = dict.iterator();
 		ArrayList<String> s = new ArrayList<String>();
@@ -79,19 +76,18 @@ public class Main {
 	 * @return ArrayList of 2 Strings containing start word and end word. 
 	 * If command is /quit, return empty ArrayList. 
 	 */
-	public static ArrayList<String> parse(Scanner keyboard) {
-		
-			ArrayList<String> arr = new ArrayList<String>();
+	public static void parse (Scanner keyboard) {
+		while(true){
 			String input = keyboard.nextLine();
 			String[] word = input.split(" ");
 			if (word[0].equals("/quit") || word[1].equals("/quit")) {
-				return arr;
+				return;
 			}
 			else {
-				arr.add(word[0]);
-				arr.add(word[1]);
+				printLadder(getWordLadderBFS(word[0], word[1]));
 			}
-			return arr;
+			resetDict();
+		}
 	}
 	
 	
@@ -110,13 +106,15 @@ public class Main {
 		head.visited = true;
 		DFSInner(head, end, finalnode);
 		
-		while(finalnode[0].parent != null){
-			res.add(finalnode[0].actual);
-			finalnode[0] = finalnode[0].parent;
+		if(finalnode[0] != null) {
+			while(finalnode[0].parent != null){
+				res.add(finalnode[0].actual);
+				finalnode[0] = finalnode[0].parent;
+			}
 		}
 		if(res.isEmpty()){
 			res.add(end);
-			res.add(start);
+			//res.add(start);
 		}
 		res.add(start);	
 		Collections.reverse(res);
@@ -135,7 +133,7 @@ public class Main {
 			}
 			dict_node.get(i).visited = false;
 		}
-//		System.out.println(head.arrList);
+		
 		ArrayList<String> arr = new ArrayList<String>();
 		head.parent = null;
 		head.visited = true;
@@ -167,9 +165,8 @@ public class Main {
 			arr.add(end);
 		}
 		Collections.reverse(arr);
-		//System.out.println(arr);
 
-		return arr; // replace this line later with real return
+		return arr;
 	}
     
 	public static Set<String>  makeDictionary () {
@@ -216,7 +213,7 @@ public class Main {
 	
 	private static boolean DFSInner(Node start, String finish, Node[] res) {
 		
-		if (start == null){
+		if (start.arrList.isEmpty()) {
 			return false;
 		}
 		start.visited = true;
@@ -235,6 +232,16 @@ public class Main {
 				}
 			}
 			return false;
+		}
+		
+	}
+	
+	private static void resetDict(){
+		
+		for(int i = 0; i < dict_node.size(); i++){
+			Node cur = 	dict_node.get(i);
+			cur.visited = false;
+			cur.parent = null;
 		}
 		
 	}
