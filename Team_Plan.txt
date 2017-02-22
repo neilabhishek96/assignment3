@@ -13,8 +13,11 @@ All testing, communication, and debugging is done either in person or via google
 
 BFS Methodology:
 	
-	
-	
+	For the BFS we go through all the nodes in the dictionary Node arraylist to find the start node. 
+	We set it as head and add it to the queue. While the queue is not empty, check to see if the current 
+	head of the queue is the word. If it is not then for each child of head, if it is not visited, add it
+	to the queue. And, if it is found, place the end node in an arraylist and go up its parent until the 
+	parent is null. Then reverse the arraylist to get the word ladder in order.
 	
 DFS Methodology:
 
