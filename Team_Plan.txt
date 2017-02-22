@@ -7,6 +7,22 @@ Spring 2017
 Neil initally completed the BFS search and findEdge method.
 Jon will complete the DFS search method.
 Jon and Neil implemented the printLadder function together.
-Neil will implement the parse function. Jon will test the parse function.
+Neil and Jon will implement the parse function. Jon will test the parse function.
 Jon will test Neil's BFS method and Neil will test Jon's DFS method.
 All testing, communication, and debugging is done either in person or via google hangouts video call.
+
+BFS Methodology:
+	
+	
+	
+	
+DFS Methodology:
+
+	DFS sets up a recursive call to DFSInner() to implement the DFS search algorithm.
+	The function passes in the starting Node, the string the search is looking for, and a Node array
+	that will hold the final Node if it is found. DFSInner base cases are if the starting Node has an
+	empty adj list, return false, or if we find the Node we where looking for, return true.
+	If one of those base cases are not met, DFSInner calls itself again on every Node in the starting
+	adj list. This search is exhaustive but is guarenteed to return either the desired Node or an empty
+	array. Once DFSInner completes, DFS will build the resulting array list using the final node and it'search
+	parental linkage. Finally it returns the result to the calling function.
