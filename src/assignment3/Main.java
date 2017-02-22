@@ -211,6 +211,13 @@ public class Main {
 		}
 	}
 	
+// ***** DFSInner *****
+// Inputs: Node, String, Node[]; Outputs Boolean
+// This is the recursive call for getWordLadderDFS()
+// Bases cases are: if the start node adj list is empty, return false
+// if the start node string equals the finish string, return true and save the node
+// else, call itself on every member of the start node adj list.
+	
 	private static boolean DFSInner(Node start, String finish, Node[] res) {
 		
 		if (start.arrList.isEmpty()) {
@@ -235,6 +242,10 @@ public class Main {
 		}
 		
 	}
+	
+//***** resetDict ******
+// Inputs: None, Outputs: None
+// This function resets the dictionary for a fresh search
 	
 	private static void resetDict(){
 		
